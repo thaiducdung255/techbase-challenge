@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Param, Controller, Get, HttpCode, Patch, Post, Delete } from '@nestjs/common';
 import { DepartmentsService } from './departments.service';
 import { Department } from './schema/departments.schema';
 import { CreateDepartmentDto } from './dto/create-department.dto';
+import { UpdateDepartmentDto } from './dto/update-department.dto';
 
 @Controller('departments')
 export class DepartmentsController {
@@ -16,5 +17,18 @@ export class DepartmentsController {
 	@HttpCode(201)
 	createOne(@Body() createDepartmentDto: CreateDepartmentDto): Promise<Department> {
 		return this.departmentsService.createOne(createDepartmentDto);
+	}
+
+	@Patch('/:id')
+	updateOne(
+		@Param('departmentId') departmentId: string,
+		@Body() updateDepartmentDto: UpdateDepartmentDto,
+	): Promise<boolean> {
+		return this.departmentsService.updateOne(departmentId, updateDepartmentDto);
+	}
+
+	@Delete('/:id')
+	deleteOne(@Param('departmentId') departmentId: string): Promise<boolean> {
+		return this.departmentsService.deleteOne(departmentId);
 	}
 }
