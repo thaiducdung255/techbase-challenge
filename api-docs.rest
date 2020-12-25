@@ -7,7 +7,36 @@ Accept: application/json
 --
 GET /
 
---
-# Team's APIs
+##################### Team's APIs ##################### 
+
 # list all teams
+--
 GET /teams
+
+--
+# create a new team
+POST /teams
+{
+  "name": "team 1",
+  "members": [],
+  "department": "dep1"
+}
+
+##################### Department's APIs ###############
+
+# list all departments
+--
+GET /departments
+
+--
+# create a new team
+POST /departments
+{
+  "name": "dept 2"
+}
+
+##################### Employee's APIs #################
+
+# list all employees
+--
+GET /employees

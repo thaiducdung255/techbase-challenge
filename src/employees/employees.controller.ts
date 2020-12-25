@@ -4,10 +4,10 @@ import { Employee } from './schema/employees.schema';
 
 @Controller('employees')
 export class EmployeesController {
-  constructor(private employeesService: EmployeesService) {}
+	constructor(private employeesService: EmployeesService) {}
 
-  @Get()
-  list(): Promise<Employee[]> {
-    return this.employeesService.list();
-  }
+	@Get()
+	list(): Promise<Employee[]> {
+		return this.employeesService.list();
+	}
 }

@@ -9,21 +9,21 @@ import { DepartmentModule } from './departments/departments.module';
 import { EmployeeModule } from './employees/employees.module';
 
 const mongoConfigs = {
-  useCreateIndex: true,
-  useFindAndModify: false,
+	useCreateIndex: true,
+	useFindAndModify: false,
 };
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      load: [configuration],
-    }),
-    MongooseModule.forRoot('mongodb://localhost:27017/test', mongoConfigs),
-    TeamModule,
-    DepartmentModule,
-    EmployeeModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		ConfigModule.forRoot({
+			load: [configuration],
+		}),
+		MongooseModule.forRoot('mongodb://localhost:27017/test', mongoConfigs),
+		TeamModule,
+		DepartmentModule,
+		EmployeeModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}

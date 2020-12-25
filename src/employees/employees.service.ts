@@ -5,11 +5,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class EmployeesService {
-  constructor(
-    @InjectModel(Employee.name) private employeeModel: Model<Employee>,
-  ) {}
+	constructor(@InjectModel(Employee.name) private employeeModel: Model<Employee>) {}
 
-  async list(): Promise<Employee[]> {
-    return this.employeeModel.find();
-  }
+	async list(): Promise<Employee[]> {
+		return this.employeeModel.find();
+	}
 }
