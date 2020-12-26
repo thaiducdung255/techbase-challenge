@@ -13,6 +13,11 @@ export class DepartmentsController {
 		return this.departmentsService.list();
 	}
 
+	@Get('/:id')
+	getOne(@Param('id') departmentId: string): Promise<Department> {
+		return this.departmentsService.getOne(departmentId);
+	}
+
 	@Post()
 	@HttpCode(201)
 	createOne(@Body() createDepartmentDto: CreateDepartmentDto): Promise<Department> {
@@ -20,15 +25,12 @@ export class DepartmentsController {
 	}
 
 	@Patch('/:id')
-	updateOne(
-		@Param('departmentId') departmentId: string,
-		@Body() updateDepartmentDto: UpdateDepartmentDto,
-	): Promise<boolean> {
+	updateOne(@Param('id') departmentId: string, @Body() updateDepartmentDto: UpdateDepartmentDto): Promise<boolean> {
 		return this.departmentsService.updateOne(departmentId, updateDepartmentDto);
 	}
 
 	@Delete('/:id')
-	deleteOne(@Param('departmentId') departmentId: string): Promise<boolean> {
+	deleteOne(@Param('id') departmentId: string): Promise<boolean> {
 		return this.departmentsService.deleteOne(departmentId);
 	}
 }

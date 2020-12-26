@@ -35,6 +35,14 @@ POST /departments
   "name": "dept 2"
 }
 
+# get one department id
+--
+GET /departments/5fe60630e9c0d8faf34d0956
+
+--
+# delete a team
+DELETE /departments/5fe604be6da65eeb28471d98
+
 ##################### Employee's APIs #################
 
 # list all employees

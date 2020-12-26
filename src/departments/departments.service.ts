@@ -51,4 +51,12 @@ export class DepartmentsService {
 			throw new InternalServerErrorException(err.toString());
 		}
 	}
+
+	async getOne(departmentId: string): Promise<Department> {
+		try {
+			return this.departmentModel.findOne({ _id: departmentId });
+		} catch (err) {
+			throw new InternalServerErrorException(err.toString());
+		}
+	}
 }

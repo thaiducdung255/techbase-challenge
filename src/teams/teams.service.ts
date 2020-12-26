@@ -51,4 +51,12 @@ export class TeamsService {
 			throw new InternalServerErrorException(err.toString());
 		}
 	}
+
+	async getOne(teamId: string): Promise<Team> {
+		try {
+			return this.teamModel.findOne({ _id: teamId });
+		} catch (err) {
+			throw new InternalServerErrorException(err.toString());
+		}
+	}
 }

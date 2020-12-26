@@ -6,7 +6,7 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
 @Injectable()
-export class employeesService {
+export class EmployeesService {
 	constructor(@InjectModel(Employee.name) private employeeModel: Model<Employee>) {}
 
 	async list(): Promise<Employee[]> {
@@ -47,6 +47,14 @@ export class employeesService {
 		try {
 			await this.employeeModel.deleteOne({ _id: employeeId });
 			return true;
+		} catch (err) {
+			throw new InternalServerErrorException(err.toString());
+		}
+	}
+
+	async getOne(employeeId: string): Promise<Employee> {
+		try {
+			return this.employeeModel.findOne({ _id: employeeId });
 		} catch (err) {
 			throw new InternalServerErrorException(err.toString());
 		}
