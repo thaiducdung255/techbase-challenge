@@ -2,6 +2,7 @@
     This application was not meet these requirements:
     	 - authentication:
     	 - unit testing: the test cannot run due to error: controller is undefined(at this moment, i can't figure out why)
+    API documentation: api-docs.rest
 
 ## Installation
 
