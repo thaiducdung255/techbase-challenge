@@ -1,17 +1,19 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+
 import { Department } from './schema/departments.schema';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateDepartmentDto } from './dto/create-department.dto';
 import { UpdateDepartmentDto } from './dto/update-department.dto';
+import { PaginationOption } from '../common/dto/common.pagination-option.dto';
 
 @Injectable()
 export class DepartmentsService {
 	constructor(@InjectModel(Department.name) private departmentModel: Model<Department>) {}
 
-	async list(): Promise<Department[]> {
+	async list(paginationOption: PaginationOption): Promise<Department[]> {
 		try {
-			return this.departmentModel.find();
+			return this.departmentModel.find().skip(paginationOption.skip).limit(paginationOption.limit);
 		} catch (err) {
 			throw new InternalServerErrorException(err.toString());
 		}
@@ -19,7 +21,7 @@ export class DepartmentsService {
 
 	async createOne(createDepartmentDto: CreateDepartmentDto): Promise<Department> {
 		try {
-			const newDepartment = new this.departmentModel(createDepartmentDto);
+			const newDepartment: Department = new this.departmentModel(createDepartmentDto);
 			await newDepartment.save();
 			return newDepartment;
 		} catch (err) {
@@ -27,26 +29,33 @@ export class DepartmentsService {
 		}
 	}
 
-	async updateOne(departmentId: string, updateDepartmentDto: UpdateDepartmentDto): Promise<boolean> {
+	async updateOne(departmentId: string, updateDepartmentDto: UpdateDepartmentDto): Promise<Department> {
 		try {
-			await this.departmentModel.updateOne(
-				{
-					_id: departmentId,
-				},
+			const updatedDept: Department = await this.departmentModel.findByIdAndUpdate(
+				departmentId,
 				{
 					$set: updateDepartmentDto,
 				},
+				{
+					new: true,
+				},
 			);
-			return true;
+
+			if (!updatedDept) throw new NotFoundException(`Department #${departmentId} not found`);
+
+			return updatedDept;
 		} catch (err) {
 			throw new InternalServerErrorException(err.toString());
 		}
 	}
 
-	async deleteOne(departmentId: string): Promise<boolean> {
+	async deleteOne(departmentId: string): Promise<Department> {
 		try {
-			await this.departmentModel.deleteOne({ _id: departmentId });
-			return true;
+			const deletedDept: Department = await this.departmentModel.findByIdAndDelete(departmentId);
+
+			if (!deletedDept) throw new NotFoundException(`Department #${departmentId} not found`);
+
+			return deletedDept;
 		} catch (err) {
 			throw new InternalServerErrorException(err.toString());
 		}
@@ -54,7 +63,11 @@ export class DepartmentsService {
 
 	async getOne(departmentId: string): Promise<Department> {
 		try {
-			return this.departmentModel.findOne({ _id: departmentId });
+			const selectedDept: Department = await this.departmentModel.findById(departmentId);
+
+			if (!selectedDept) throw new NotFoundException(`Department #${departmentId} not found`);
+
+			return selectedDept;
 		} catch (err) {
 			throw new InternalServerErrorException(err.toString());
 		}

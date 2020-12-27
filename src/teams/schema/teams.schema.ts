@@ -20,7 +20,6 @@ export class Team extends mongoose.Document {
 	department: Department;
 
 	@Prop({
-		required: true,
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Employee',
 	})

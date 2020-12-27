@@ -3,10 +3,6 @@ http://localhost:3000
 Accept: application/json
 --
 
-# root api
---
-GET /
-
 ##################### Team's APIs ##################### 
 
 # list all teams
@@ -18,9 +14,23 @@ GET /teams
 POST /teams
 {
   "name": "team 1",
-  "members": [],
-  "department": "dep1"
+  "department": "5fe60630e9c0d8faf34d0956"
 }
+
+--
+# update one department by id
+PATCH /teams/5fe60630e9c0d8faf34d0956
+{
+	"name": "new name"
+}
+
+# get one department id
+--
+GET /teams/5fe60630e9c0d8faf34d0956
+
+--
+# delete a team
+DELETE /teams/5fe604be6da65eeb28471d98
 
 ##################### Department's APIs ###############
 
@@ -29,10 +39,17 @@ POST /teams
 GET /departments
 
 --
-# create a new team
+# create a new department
 POST /departments
 {
   "name": "dept 2"
+}
+
+--
+# update one department by id
+PATCH /departments/5fe60630e9c0d8faf34d0956
+{
+	"name": "new name"
 }
 
 # get one department id
@@ -40,7 +57,7 @@ POST /departments
 GET /departments/5fe60630e9c0d8faf34d0956
 
 --
-# delete a team
+# delete a department
 DELETE /departments/5fe604be6da65eeb28471d98
 
 ##################### Employee's APIs #################
@@ -48,3 +65,27 @@ DELETE /departments/5fe604be6da65eeb28471d98
 # list all employees
 --
 GET /employees
+
+--
+# get one employee by id
+GET /employees/5fe6f19af4768c25ca479514
+
+--
+# create a new employee
+POST /employees
+{
+	"username": "dungtd12",
+	"password": "123",
+	"role": "member"
+}
+
+--
+# update one employee by id
+PATCH /employees/5fe6f19af4768c25ca479514
+{
+	"role": "member"
+}
+
+--
+# delete one employee by id
+DELETE /employees/5fe6f19af4768c25ca479514

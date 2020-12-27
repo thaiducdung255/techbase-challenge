@@ -17,6 +17,7 @@ const mongoConfigs = {
 	imports: [
 		ConfigModule.forRoot({
 			load: [configuration],
+			isGlobal: true,
 		}),
 		MongooseModule.forRoot('mongodb://localhost:27017/test', mongoConfigs),
 		TeamModule,

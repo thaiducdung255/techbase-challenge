@@ -5,7 +5,6 @@ import { Team } from '../../teams/schema/teams.schema';
 @Schema()
 export class Employee extends mongoose.Document {
 	@Prop({
-		required: true,
 		index: true,
 		lowercase: true,
 		type: mongoose.Schema.Types.ObjectId,
@@ -19,16 +18,20 @@ export class Employee extends mongoose.Document {
 		index: true,
 		immutable: true,
 		lowercase: true,
+		minlength: 3,
+		maxlength: 20,
 	})
 	username: string;
 
 	@Prop({
 		required: true,
+		minlength: 10,
 	})
 	password: string;
 
 	@Prop({
 		required: true,
+		minlength: 10,
 	})
 	salt: string;
 

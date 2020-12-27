@@ -1,7 +1,7 @@
 export class CreateEmployeeDto {
-	teams: string[];
+	teams?: string[];
 	username: string;
 	password: string;
-	salt: string;
-	role: string;
+	salt?: string;
+	role?: string;
 }

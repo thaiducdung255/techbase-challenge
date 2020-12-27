@@ -7,6 +7,8 @@ export class Department extends Document {
 		required: true,
 		unique: true,
 		index: true,
+		maxlength: 25,
+		minlength: 3,
 	})
 	name: string;
 }
